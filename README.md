@@ -1,3 +1,3 @@
 # Hacks
 
-a collection of practical tools i used in bug bounty hunting and penetration testing :)
+a collection of practical tools i am using in bug bounty hunting and penetration testing :)
