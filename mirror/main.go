@@ -15,7 +15,8 @@ import (
 	"time"
 )
 
-var commonReflectiveHeaders = []string {
+var commonReflectiveHeaders = []string{
+	"Host",
 	"User-Agent",
 	"Referer",
 	"Origin",
@@ -64,9 +65,8 @@ func checkAndPrint(u *url.URL, body, label, searchStr string) {
 	}
 }
 
-
-// this function loops in the URL queries 
-// then loops in the values of that queries 
+// this function loops in the URL queries
+// then loops in the values of that queries
 // params, checking for values that it's length
 // less that 4 chars (reduce false positive)
 // then check if this values reflects in the response.
@@ -116,11 +116,11 @@ func fetchBody(u *url.URL, client *http.Client, extraHeaders map[string]string, 
 	}
 
 	cookiesNames := getCookiesNames(res.Header)
-	
+
 	return string(b), cookiesNames, nil
 }
 
-// this function generate random strings 
+// this function generate random strings
 // to use in testing scenarios
 func genRandString(n int) string {
 	b := make([]byte, n)
@@ -165,7 +165,7 @@ func processURL(line string, client *http.Client) {
 		pURL.Path += "/"
 	}
 	pURL.Path += pRandStr
-	pBody, _, _ := fetchBody(pURL, client, nil, nil) 
+	pBody, _, _ := fetchBody(pURL, client, nil, nil)
 	if pBody != "" {
 		checkReflection(pURL, pBody, "PATH SEGMENT", pRandStr)
 	}
@@ -195,7 +195,7 @@ func processURL(line string, client *http.Client) {
 	// Random Injection in each common/existing Headers
 	for _, hk := range commonReflectiveHeaders {
 		hRand := genRandString(9)
-		extraHeaders := map[string]string {
+		extraHeaders := map[string]string{
 			hk: hRand,
 		}
 		hBody, _, _ := fetchBody(orgURL, client, extraHeaders, nil)
@@ -209,7 +209,7 @@ func processURL(line string, client *http.Client) {
 		cRand := genRandString(9)
 		cookies := []*http.Cookie{
 			{
-				Name: cn,
+				Name:  cn,
 				Value: cRand,
 			},
 		}
@@ -223,9 +223,9 @@ func processURL(line string, client *http.Client) {
 
 func main() {
 	client := &http.Client{
-		Timeout: time.Second * 10,
+		Timeout: time.Second * 30,
 		Transport: &http.Transport{
-			MaxIdleConns: 100,
+			MaxIdleConns:        100,
 			MaxIdleConnsPerHost: 10,
 		},
 	}
@@ -252,7 +252,7 @@ func main() {
 	}()
 
 	// Start Worker Pool
-	for range make([]struct{}, 10) {
+	for range 10 {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
