@@ -160,7 +160,7 @@ func main() {
 	}()
 
 	// Worker Pool
-	for i:=0; i<10; i++ {
+	for range make([]struct{}, 10){
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

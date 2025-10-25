@@ -122,7 +122,7 @@ func parseSecTxt(raw string) SecurityTxt {
 	}
 
 	if len(txt.Contacts) < 1 {
-		txt.Errors = append(txt.Errors, fmt.Sprintf("does not contain any conatct filed."))
+		txt.Errors = append(txt.Errors, "does not contain any conatct filed.")
 	}
 
 	return txt

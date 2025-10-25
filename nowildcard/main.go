@@ -22,7 +22,7 @@ func randString(n int) string {
 	chars := []byte("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 	out := bytes.Buffer{}
 
-	for i:=0; i<n; i++ {
+	for range make([]struct{}, n){
 		out.WriteByte(chars[rand.Intn(len(chars))])
 	}
 
