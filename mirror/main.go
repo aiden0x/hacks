@@ -20,10 +20,20 @@ var commonReflectiveHeaders = []string{
 	"User-Agent",
 	"Referer",
 	"Origin",
-	"X-Forwarded-For",
-	"X-Forwarded-Host",
-	"X-Real-IP",
 	"Accept-Language",
+	"Forwarded",
+	"X-Forwarded",
+	"X-Forwarded-By",
+	"X-Forwarded-For-Original",
+	"X-Forwarded-Host",
+	"X-Forwarded-For",
+	"X-Forwarded-Proto",
+	"X-Forwarded-Server",
+	"X-Real-IP",
+	"X-Original-Url",
+	"X-Original-Host",
+	"X-Host",
+	"X-Rewrite-Url",
 }
 
 // this function loops in the header Set-Cookie
@@ -225,7 +235,7 @@ func main() {
 	client := &http.Client{
 		Timeout: time.Second * 30,
 		Transport: &http.Transport{
-			MaxIdleConns:        100,
+			MaxIdleConns:        200,
 			MaxIdleConnsPerHost: 10,
 		},
 	}
