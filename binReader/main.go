@@ -40,9 +40,9 @@ func bin2txt(line string) (string, error) {
 	}
 
 	var builder strings.Builder
-	for i := 0; i < len(line); i+=8 {
+	for i := 0; i < len(line); i += 8 {
 		// Extract 8-bit chunk
-		chunk := line[i:i+8]
+		chunk := line[i : i+8]
 		// Parse chunk as binary to get byte value
 		n, err := strconv.ParseInt(chunk, 2, 8)
 		if err != nil {
